@@ -12,6 +12,16 @@ if($action == "create_user"){
   echo json_encode(["user"=> $user->name,
    "email" => User::validateEmail($user->email),
    "password" => User::validatePassword($user->password)]);
+}elseif($action == "update_user") {
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $user = new User($name, $email, $password);
+  $updates = json_decode($_POST['updates'], true);
+  $newUser = $user->copy_with($updates);
+  echo json_encode(["newUser" => ["user"=> $newUser->name,
+  "email" => User::validateEmail($newUser->email),
+  "password" => User::validatePassword($newUser->password)]]);
 }
 
 
@@ -52,7 +62,7 @@ class User {
 
 
   public static function validateEmail($email){
-    return filter_var($email, FILTER_VALIDATE_EMAIL);
+    return filter_var($email, FILTER_VALIDATE_EMAIL) != false;
   }
 
   public function copy_with($updates) {
