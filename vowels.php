@@ -33,6 +33,19 @@ class LinkedList {
         $current->next = $newNode;
     }
 }
+
+
+private function getNodes(){
+  $current = $this->head;
+  $result = [];
+  while($current != null){
+      if(countingVowels($current->value) >= 2){
+          $result[] = $current->value;
+      }
+      $current = $current->next;
+  }
+  return $result;
+}
 }
 
  function countingVowels($str){
@@ -45,5 +58,13 @@ class LinkedList {
   }
   return $count;
 }
+
+
+$list = new LinkedList();
+foreach($array as $word) {
+  $list->add($word);
+}
+
+echo json_encode(["result" => $list->getNodes()]);
 
 
