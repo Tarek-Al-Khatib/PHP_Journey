@@ -1,5 +1,21 @@
 <?php
 
+$action = $_POST['action'];
+
+if($action == "create_user"){
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  $user = new User($name, $email, $password);
+
+  echo json_encode(["user"=> $user->name,
+   "email" => User::validateEmail($user->email),
+   "password" => User::validatePassword($user->password)]);
+}
+
+
+
 class User {
   public $name;
   public $password;
