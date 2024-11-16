@@ -35,7 +35,7 @@ class LinkedList {
 }
 
 
-private function getNodes(){
+public function getNodes(){
   $current = $this->head;
   $result = [];
   while($current != null){
