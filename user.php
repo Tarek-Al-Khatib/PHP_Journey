@@ -32,8 +32,13 @@ class User {
     }
 
     return $hasUppercase && $hasLowercase && $hasSpecialChar;
-
   }
+
+
+  public static function validateEmail($email){
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+  }
+
   public function copy_with($updates) {
     $name = $updates['name'] ?? $this->name;
     $email = $updates['email'] ?? $this->email;
