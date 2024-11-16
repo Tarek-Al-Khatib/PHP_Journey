@@ -11,6 +11,29 @@ class User {
     $this->email = $email;
   }
 
+  public static function validatePassword($password){
+    if(strlen($password) < 12){
+      return false;
+    }
+
+    $hasUppercase = false;
+    $hasLowercase = false;
+    $hasSpecialChar = false;
+
+    for($i = 0; $i < strlen($password); $i++){
+      $char = $password[$i];
+      if(ctype_upper($char)){
+          $hasUppercase = true;
+      }elseif(ctype_lower($char)){
+          $hasLowercase = true;
+      }elseif(!($char >= '0' && $char <= '9') && !($char >= 'A' && $char <= 'Z') && !($char >= 'a' && $char <= 'z')){ 
+          $hasSpecialChar = true;
+      }
+    }
+
+    return $hasUppercase && $hasLowercase && $hasSpecialChar;
+
+  }
   public function copy_with($updates) {
     $name = $updates['name'] ?? $this->name;
     $email = $updates['email'] ?? $this->email;
